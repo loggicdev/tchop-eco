@@ -1,0 +1,26 @@
+[variables]
+NIXPACKS_METADATA = "flutter-web-admin"
+FLUTTER_VERSION = "stable"
+
+[phases.setup]
+nixPkgs = ["flutter", "git", "busybox"]
+
+[phases.build]
+cmds = [
+    "flutter --version",
+    "flutter pub get",
+    "flutter build web --release --base-href /"
+]
+
+[phases.start]
+cmd = "cd build/web && busybox httpd -f -v -p 8080"
+
+[phases.install]
+dependsOn = ["setup"]
+
+[buildImage]
+name = "ghcr.io/railwayapp/nixpacks:ubuntu-1700690905"
+
+[start]
+cmd = "cd build/web && busybox httpd -f -v -p 8080"
+runImage = "ubuntu:22.04"
