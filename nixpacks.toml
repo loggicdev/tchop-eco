@@ -14,13 +14,3 @@ cmds = [
 
 [phases.start]
 cmd = "cd build/web && busybox httpd -f -v -p 8080"
-
-[phases.install]
-dependsOn = ["setup"]
-
-[buildImage]
-name = "ghcr.io/railwayapp/nixpacks:ubuntu-1700690905"
-
-[start]
-cmd = "cd build/web && busybox httpd -f -v -p 8080"
-runImage = "ubuntu:22.04"
